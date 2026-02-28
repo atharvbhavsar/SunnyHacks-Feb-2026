@@ -29,13 +29,13 @@ We used **Python** and **Streamlit** for the frontend, and **Scikit-Learn** for 
 graph TD
     A[Raw Kaggle Dataset] -->|"kagglehub download"| B(Data Pipeline)
     
-    subgraph Streamlit Backend (app.py)
+    subgraph Backend [Streamlit Backend]
         B -->|Feature Engineering| C{Data Cleaning}
         C -->|Impute NaN, Drop Cols| D[Cleaned DataFrame]
         D -->|Train/Test Split| E(Random Forest Classifier)
     end
     
-    subgraph Streamlit Frontend
+    subgraph Frontend [Streamlit Frontend]
         E -.->|"Extract Insights"| F[EDA & Feature Importance Tabs]
         G[User Input Sliders] -->|Live Sensor Data| H[Prediction Engine]
         E -->|"Model Weights"| H
