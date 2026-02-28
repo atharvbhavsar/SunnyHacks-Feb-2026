@@ -72,3 +72,4 @@ To share this project with the judges via a public URL, deploy it for free using
 3. Click **"New App"** and select your FreshTrack repository.
 4. Set the Main file path to `app.py`.
 5. Click **Deploy!** Your app will be live on the internet in about 2 minutes.
+Live Demo: https://sunnyhacks-feb-2026-qdbidtqbvrjcxevkjvfd94.streamlit.app/
