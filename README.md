@@ -16,12 +16,38 @@ This is a massive dataset containing real IoT sensor readings for cold-chain mon
 ## How we built it
 We used **Python** and **Streamlit** for the frontend, and **Scikit-Learn** for the backend ML.
 
-**Key Hackathon Features:**
-- **Interactive UI with Tabs**: We separated the application into Live Prediction, Exploratory Data Analysis (EDA), and ML Insights using Streamlit tabs for a professional user experience.
-- **Exploratory Data Analysis (EDA)**: Fully interactive `Plotly` graphs showing the correlation between ambient temperature, humidity, and the risk of spoilage, as well as class imbalance.
+## 🌟 Key Features
+- **Live Spoilage Prediction**: Dispatchers can input route sensor averages, and our AI predicts if the shipment will survive the journey with real-time confidence scores.
+- **Exploratory Data Analysis (EDA)**: Fully interactive `Plotly` graphs showing the correlation between ambient temperature, humidity, and the risk of spoilage, as well as a 3D scatter plot for multivariate analysis.
 - **Advanced Machine Learning**: Upgraded to a `RandomForestClassifier` (an ensemble method) to prevent overfitting on the massive 40,000+ row dataset.
-- **Feature Importance Tracking**: The app uses the Random Forest model to display exactly which scientific features cause the most spoilage (proving out the physics behind the data).
-- **Data Pipeline Excellence**: Cleaned raw string column names, dropped redundant Fahrenheit columns (to prevent multicollinearity), and imputed missing median temperatures to prove robust data engineering.
+- **Explainable AI (Feature Importance)**: The app displays exactly which scientific features cause the most spoilage, proving the model learned correct physical constraints (e.g., Object Temperature > Ambient Temperature for spoilage).
+- **Robust Data Pipeline**: Cleaned raw string column names, dropped redundant Fahrenheit columns (to prevent multicollinearity), and imputed missing median temperatures.
+
+## 🏗️ System Architecture & Flow
+
+```mermaid
+graph TD
+    A[Raw Kaggle Dataset] -->|"kagglehub download"| B(Data Pipeline)
+    
+    subgraph Streamlit Backend (app.py)
+        B -->|Feature Engineering| C{Data Cleaning}
+        C -->|Impute NaN, Drop Cols| D[Cleaned DataFrame]
+        D -->|Train/Test Split| E(Random Forest Classifier)
+    end
+    
+    subgraph Streamlit Frontend
+        E -.->|"Extract Insights"| F[EDA & Feature Importance Tabs]
+        G[User Input Sliders] -->|Live Sensor Data| H[Prediction Engine]
+        E -->|"Model Weights"| H
+        H -->|High/Low Risk| I{Dashboard Alert}
+    end
+```
+
+## 🚀 The Project Flow (How to Demo)
+1. **The Hook**: Globally, 30% of food is wasted, and a massive portion spoils silently in cold-chain trucks.
+2. **The Data**: We pulled 40,000+ real IoT sensor readings (Temperature, Humidity, Cooling Power) from Kaggle.
+3. **The AI**: We trained an explainable Random Forest model to predict spoilage probability based on those sensor readings.
+4. **The UI**: We built a Streamlit dashboard showing interactive 3D risk zones, feature correlations, and a live prediction simulator for dispatchers.
 
 ## Running Locally
 
